@@ -1,0 +1,41 @@
+/*
+  theme.css -- Alex Hughes theme.
+
+  Cream + forest green, all-caps extended grotesque headings, modeled on
+  the original Squarespace site. Plain (non light-dark()) values are
+  deliberate: the site is light-only.
+*/
+
+:root {
+	color-scheme: light;
+
+	/* Colors */
+	--color-bg: #fffbf3;
+	--color-text: #0a0a0a;
+	--color-muted: #3d3d3d;
+	--color-border: rgba(0, 0, 0, 0.14);
+	--color-surface: #fffbf3;
+	--color-brand: #266e30; /* forest green */
+	--color-on-brand: #fffbf3;
+	--color-danger: #dc2626;
+
+	/* Typography */
+	--font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	--font-weight-heading: 400; /* Archivo Black only ships 400 */
+	--font-weight-display: 400;
+
+	/* Type scale — original uses ~53px display, ~19px subheads */
+	--font-size-3xl: 3rem;
+	--font-size-4xl: 3.4rem;
+
+	--leading-tight: 1.05;
+}
+
+/* All-caps heading treatment used across the site */
+h1,
+h2,
+h3,
+h4 {
+	text-transform: uppercase;
+	letter-spacing: 0.01em;
+}

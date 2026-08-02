@@ -1,0 +1,69 @@
+{
+  "collections": [
+    {
+      "slug": "projects",
+      "label": "Projects",
+      "labelSingular": "Project",
+      "supports": [
+        "drafts",
+        "revisions",
+        "search",
+        "seo"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "unique": false
+        },
+        {
+          "slug": "thumbnail",
+          "label": "Thumbnail",
+          "type": "image",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "images",
+          "label": "Images",
+          "type": "repeater",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "subFields": [
+              {
+                "slug": "image",
+                "type": "image",
+                "label": "Image"
+              }
+            ]
+          }
+        },
+        {
+          "slug": "excerpt",
+          "label": "Excerpt",
+          "type": "text",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "year",
+          "label": "Year",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "details",
+          "label": "Details",
+          "type": "json",
+          "required": false,
+          "unique": false
+        }
+      ]
+    }
+  ],
+  "version": "9d3ab20af44cc947"
+}

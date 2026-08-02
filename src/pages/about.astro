@@ -1,0 +1,103 @@
+---
+import Base from "../layouts/Base.astro";
+
+export const prerender = false;
+
+const portrait =
+	"https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/30c58e8f-69d2-443a-a917-01af301e129e/19BFD87D-14AD-410D-B746-658E754F3534.jpg";
+---
+
+<Base title="About" description="About Alex Hughes, Toronto based writer.">
+	<section class="about">
+		<div class="about-photo">
+			<img src={portrait} alt="Alex Hughes" />
+		</div>
+		<div class="about-copy">
+			<h1 class="about-title">
+				Hi, I’m<br />
+				<span class="about-name">Alex Hughes</span>
+			</h1>
+			<h2 class="about-label">About</h2>
+			<p>Former television writer turned copywriter.</p>
+			<p>
+				My clients include: Moosehead, SiriusXM, Purpose Investments, and the
+				Metropolitan Museum of Art.
+			</p>
+			<p>My writing has appeared in Vice, CBC Comedy, and Hazlitt.</p>
+			<p>Based in Toronto.</p>
+		</div>
+	</section>
+
+	<section class="faq">
+		<h2 class="faq-heading">F.A.Q</h2>
+		<h3 class="faq-q">What kind of work am I looking for?</h3>
+		<p>Freelance! Full time! Part time!</p>
+		<h3 class="faq-q">Hit me up!</h3>
+		<p>
+			<a href="mailto:alex.typical@gmail.com">alex dot typical at gmail dot com</a>
+		</p>
+	</section>
+</Base>
+
+<style>
+	.about {
+		display: grid;
+		grid-template-columns: 1fr 1.2fr;
+		gap: var(--spacing-2xl);
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: clamp(2rem, 5vw, 4rem) var(--spacing-xl);
+	}
+
+	.about-photo img {
+		width: 100%;
+		height: auto;
+	}
+
+	.about-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 4.5vw, 3.4rem);
+		line-height: var(--leading-tight);
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.about-name {
+		color: var(--color-brand);
+	}
+
+	.about-label {
+		font-family: var(--font-heading);
+		font-size: 1.1rem;
+		color: var(--color-brand);
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.about-copy p {
+		margin-bottom: var(--spacing-md);
+		line-height: var(--leading-relaxed);
+	}
+
+	.faq {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: clamp(2rem, 5vw, 4rem) var(--spacing-xl) 0;
+	}
+
+	.faq-heading {
+		font-family: var(--font-heading);
+		font-size: 1.6rem;
+		margin-bottom: var(--spacing-xl);
+	}
+
+	.faq-q {
+		font-family: var(--font-heading);
+		font-size: 1.05rem;
+		margin: var(--spacing-lg) 0 var(--spacing-sm);
+	}
+
+	@media (max-width: 800px) {
+		.about {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

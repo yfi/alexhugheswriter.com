@@ -1,0 +1,799 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "Alex Hughes",
+		"description": "Portfolio site for Alex Hughes, Toronto based writer",
+		"author": "Alex Hughes"
+	},
+	"settings": {
+		"title": "Alex Hughes",
+		"tagline": "Toronto based writer"
+	},
+	"collections": [
+		{
+			"slug": "projects",
+			"label": "Projects",
+			"labelSingular": "Project",
+			"supports": [
+				"drafts",
+				"revisions",
+				"search",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "thumbnail",
+					"label": "Thumbnail",
+					"type": "image"
+				},
+				{
+					"slug": "images",
+					"label": "Images",
+					"type": "repeater",
+					"validation": {
+						"subFields": [
+							{
+								"slug": "image",
+								"type": "image",
+								"label": "Image"
+							}
+						]
+					}
+				},
+				{
+					"slug": "excerpt",
+					"label": "Excerpt",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "year",
+					"label": "Year",
+					"type": "string"
+				},
+				{
+					"slug": "details",
+					"label": "Details",
+					"type": "repeater",
+					"validation": {
+						"subFields": [
+							{ "slug": "key", "type": "string", "label": "Key" },
+							{ "slug": "value", "type": "string", "label": "Value" }
+						]
+					}
+				}
+			]
+		},
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"supports": [
+				"drafts",
+				"revisions",
+				"search",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "thumbnail",
+					"label": "Thumbnail",
+					"type": "image"
+				},
+				{
+					"slug": "excerpt",
+					"label": "Excerpt",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "url",
+					"label": "URL",
+					"type": "url"
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "template",
+					"label": "Template",
+					"type": "select",
+					"defaultValue": "default",
+					"validation": {
+						"options": [
+							"default",
+							"wide"
+						]
+					}
+				}
+			]
+		}
+	],
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Primary Navigation",
+			"items": [
+				{
+					"type": "custom",
+					"label": "Home",
+					"url": "/"
+				},
+				{
+					"type": "custom",
+					"label": "About",
+					"url": "/about"
+				}
+			]
+		}
+	],
+	"content": {
+		"projects": [
+			{
+				"id": "project-kraft-dinner",
+				"slug": "kraft-dinner",
+				"status": "published",
+				"data": {
+					"title": "Kraft Dinner",
+					"thumbnail": {
+						"$media": {
+							"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1700075651270-C9NGICDOPYDA8RVHNO0D/The_Kraft_Heinz_Company_KD__Mac_N__Cheese_Unveils_First_Rebrand.jpeg",
+							"alt": "Kraft Dinner rebrand packaging",
+							"filename": "kraft-dinner-thumb.jpeg"
+						}
+					},
+					"images": [
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/23aa3e9e-0b05-439b-a195-d24b4abf40a6/kd+24+box.png",
+									"alt": "KD 2-4 box",
+									"filename": "kraft-dinner-1.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/6519bad5-2ee5-4bf1-9551-6971fce0b2aa/IMG_1791.JPG",
+									"alt": "KD 2-4 in the wild",
+									"filename": "kraft-dinner-2.jpg"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/386dc674-2d82-48cd-8ace-b59ab70cacfd/MicrosoftTeams-image+%2828%29.png",
+									"alt": "Macsterpiece artwork",
+									"filename": "kraft-dinner-3.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/eded870d-7088-4ad1-887c-96157e861f2a/MicrosoftTeams-image+%2823%29+2.png",
+									"alt": "Macsterpiece artwork",
+									"filename": "kraft-dinner-4.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/7f3974a0-14f0-41e7-bdfd-5286457fea51/MicrosoftTeams-image+%2825%29.png",
+									"alt": "Macsterpiece artwork",
+									"filename": "kraft-dinner-5.png"
+								}
+							}
+						}
+					],
+					"excerpt": "The Hot Take: KD may be Canada's number one noodle, but the boxed mac and cheese aisle has gotten pretty crowded, so we partnered with The Beer Store and released the world's first KD 2-4 for the May 2-4, so people could spend less time prepping for the long weekend and more time enjoying it.",
+					"year": "2023",
+					"details": [
+						{
+							"key": "Campaigns",
+							"value": "KD 2-4, Macsterpiece"
+						},
+						{
+							"key": "Description",
+							"value": "Macaroni as an artistic medium falls out of favour as we get older, so we did something about it."
+						},
+						{
+							"key": "Agency",
+							"value": "The Kitchen"
+						},
+						{
+							"key": "Client",
+							"value": "Kraft Heinz"
+						},
+						{
+							"key": "Creative Director",
+							"value": "Damon Crate"
+						},
+						{
+							"key": "Art Director",
+							"value": "Amber Osmond"
+						},
+						{
+							"key": "Awards",
+							"value": "Ace Award – Design and Packaging · ADCC 2023 Bronze – Interactive"
+						}
+					]
+				}
+			},
+			{
+				"id": "project-moosehead",
+				"slug": "moosehead",
+				"status": "published",
+				"data": {
+					"title": "Moosehead",
+					"thumbnail": {
+						"$media": {
+							"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1660251572588-XQF392FAWMDGRUF13Q34/Tile_Frames2.jpg",
+							"alt": "Moosehead campaign tile",
+							"filename": "moosehead-thumb.jpg"
+						}
+					},
+					"images": [
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1add8f17-be9e-49c7-8467-8cde9358f884/FYO8oVBXoAA4a6T.jpg",
+									"alt": "Hard Working Beer campaign",
+									"filename": "moosehead-1.jpg"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/506fd2ab-932a-43e4-8454-71b5a8866075/MockupPeachMango.jpg",
+									"alt": "Seltzernomics — peach mango mockup",
+									"filename": "moosehead-2.jpg"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/f9edff79-59a4-4dd0-9afc-ee1c00a6bbbe/OrangeCherryMockup+.png",
+									"alt": "Seltzernomics — orange cherry mockup",
+									"filename": "moosehead-3.png"
+								}
+							}
+						}
+					],
+					"excerpt": "The Hot Take: The best beer is the one you drink at the end of a hard day of work.",
+					"year": "2022",
+					"details": [
+						{
+							"key": "Campaigns",
+							"value": "Hard Working Beer, Seltzernomics"
+						},
+						{
+							"key": "Description",
+							"value": "Everyone's got rising food prices and inflation on their mind these days. So we compared outrageous fruit prices to cans of fruit flavoured hard seltzer."
+						},
+						{
+							"key": "Agency",
+							"value": "Conflict Advertising"
+						},
+						{
+							"key": "Client",
+							"value": "Moosehead Breweries"
+						},
+						{
+							"key": "Creative Director",
+							"value": "Niall Kelly"
+						},
+						{
+							"key": "Art Director",
+							"value": "Leonardo Gonzalez, Emily Albanese"
+						}
+					]
+				}
+			},
+			{
+				"id": "project-sourceforsports",
+				"slug": "sourceforsports",
+				"status": "published",
+				"data": {
+					"title": "Source For Sports",
+					"thumbnail": {
+						"$media": {
+							"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1660251554052-2O9V925TEOZD2KXY5WMP/Tile_Frames5.jpg",
+							"alt": "Source For Sports campaign tile",
+							"filename": "sourceforsports-thumb.jpg"
+						}
+					},
+					"images": [
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/b3a84a3a-808b-40fe-9b93-e27cf667f3af/21398646.png",
+									"alt": "Spring 2020 campaign",
+									"filename": "sourceforsports-1.png"
+								}
+							}
+						}
+					],
+					"excerpt": "The Hot Take: There's nothing better than outdoor sports, especially after a desolate winter lockdown. Simple, clean campaign featuring no nonsense headlines and social copy.",
+					"year": "2020",
+					"details": [
+						{
+							"key": "Campaign",
+							"value": "Spring 2020"
+						},
+						{
+							"key": "Agency",
+							"value": "Conflict Advertising"
+						},
+						{
+							"key": "Client",
+							"value": "Source For Sports"
+						},
+						{
+							"key": "Creative Director",
+							"value": "Niall Kelly"
+						},
+						{
+							"key": "Art Director",
+							"value": "Ella Kallonen"
+						}
+					]
+				}
+			},
+			{
+				"id": "project-longos",
+				"slug": "longos",
+				"status": "published",
+				"data": {
+					"title": "Longo's",
+					"thumbnail": {
+						"$media": {
+							"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1660251480449-HP7AGQUUPMXMXYSL5O6D/Tile_Frames6.jpg",
+							"alt": "Longo's campaign tile",
+							"filename": "longos-thumb.jpg"
+						}
+					},
+					"images": [
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1660060288336-HULKS3HN5AIOC0FBHIWJ/65yearmagazine_1.jpg",
+									"alt": "65 Years magazine cover",
+									"filename": "longos-1.jpg"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1660681990366-432O0L8TDHBIDVJGU9TJ/65yearmagazine_2.jpg",
+									"alt": "65 Years magazine spread",
+									"filename": "longos-2.jpg"
+								}
+							}
+						}
+					],
+					"excerpt": "To celebrate its 65th year in business, local Ontario grocery chain Longo's wanted a commemorative magazine highlighting various departments and the farm to family table philosophy that imbues their brand.",
+					"year": "2021",
+					"details": [
+						{
+							"key": "Campaigns",
+							"value": "65 Years Magazine, \"No Brine Turkey\""
+						},
+						{
+							"key": "Description",
+							"value": "All the cool kids are brining their turkeys. We introduced an even newer, cooler way to brine your turkey: the No Brine 'n' Buy your full Thanksgiving dinner at Longo's."
+						},
+						{
+							"key": "Agency",
+							"value": "Conflict Advertising"
+						},
+						{
+							"key": "Client",
+							"value": "Longo's"
+						},
+						{
+							"key": "Creative Director",
+							"value": "Niall Kelly"
+						},
+						{
+							"key": "Art Director",
+							"value": "Isabelle Donnelly"
+						}
+					]
+				}
+			},
+			{
+				"id": "project-siriusxm",
+				"slug": "siriusxm",
+				"status": "published",
+				"data": {
+					"title": "SiriusXM",
+					"thumbnail": {
+						"$media": {
+							"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1660251537363-2U329XJGWGFQWCSPEYHC/Tile_Frames.jpg",
+							"alt": "SiriusXM campaign tile",
+							"filename": "siriusxm-thumb.jpg"
+						}
+					},
+					"images": [
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/87e437fa-8456-49ef-94f1-7cb2a10a882c/Screen+Shot+2022-08-09+at+6.28.48+PM.png",
+									"alt": "Back Story campaign",
+									"filename": "siriusxm-1.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/555b69b4-a00d-4978-9e5a-a1ee6255a1ae/Screen+Shot+2022-08-09+at+6.12.01+PM.png",
+									"alt": "Back Story campaign",
+									"filename": "siriusxm-2.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/914a727c-127c-4ba3-8ba9-1461f9c287b0/Screen+Shot+2022-08-09+at+6.07.23+PM.png",
+									"alt": "Here for the Holidays campaign",
+									"filename": "siriusxm-3.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/c4e7519a-14dd-4640-83a2-5a13715186bb/Screen+Shot+2022-08-09+at+6.07.42+PM.png",
+									"alt": "Here for the Holidays campaign",
+									"filename": "siriusxm-4.png"
+								}
+							}
+						}
+					],
+					"excerpt": "The Hot Take: Personal anecdotes are more convincing than corporate slogans. SiriusXM listeners telling personal anecdotes that ranged from silly to poignant in order to remind people that SiriusXM is wayyy more than satellite radio for boomers.",
+					"year": "2022",
+					"details": [
+						{
+							"key": "Campaigns",
+							"value": "Back Story, Here for the Holidays"
+						},
+						{
+							"key": "Description",
+							"value": "SiriusXM is obsessed with helping Canadians take their favourite holiday moments from good to great. Charming headlines that had some fun with classic holiday traditions."
+						},
+						{
+							"key": "Agency",
+							"value": "Conflict Advertising"
+						},
+						{
+							"key": "Client",
+							"value": "SiriusXM Canada"
+						},
+						{
+							"key": "Creative Director",
+							"value": "Niall Kelly"
+						},
+						{
+							"key": "Art Director",
+							"value": "Ella Kallonen"
+						}
+					]
+				}
+			},
+			{
+				"id": "project-moxies",
+				"slug": "moxies",
+				"status": "published",
+				"data": {
+					"title": "Moxies",
+					"thumbnail": {
+						"$media": {
+							"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1660251518770-H1S4RUQKLA7XITSNZWVL/Tile_Frames4.jpg",
+							"alt": "Moxies campaign tile",
+							"filename": "moxies-thumb.jpg"
+						}
+					},
+					"images": [
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/96b6e6fd-59ac-4bf3-8ecd-c3dbec636b31/cc_1.png",
+									"alt": "Conversation coaster",
+									"filename": "moxies-1.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/b1d00f0d-39c1-40ca-86f8-79a4f75d42e5/cc_2.png",
+									"alt": "Conversation coaster",
+									"filename": "moxies-2.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/208ea04a-102f-4093-8811-da5033926a23/cc_3.png",
+									"alt": "Conversation coaster",
+									"filename": "moxies-3.png"
+								}
+							}
+						}
+					],
+					"excerpt": "The Hot Take: It's really hard not to talk about a pandemic during a pandemic. We put cute conversation starters on coasters to encourage patrons to talk about something else and take a break from the pandemic for a few minutes.",
+					"year": "2021",
+					"details": [
+						{
+							"key": "Campaign",
+							"value": "Conversation Coasters"
+						},
+						{
+							"key": "Agency",
+							"value": "Conflict Advertising"
+						},
+						{
+							"key": "Client",
+							"value": "Moxies"
+						},
+						{
+							"key": "Creative Director",
+							"value": "Niall Kelly"
+						},
+						{
+							"key": "Art Director",
+							"value": "Ella Kallonen"
+						}
+					]
+				}
+			},
+			{
+				"id": "project-sunwing",
+				"slug": "sunwing",
+				"status": "published",
+				"data": {
+					"title": "Sunwing",
+					"thumbnail": {
+						"$media": {
+							"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1660251497530-3Q94H4FK1VKDBM0RH1AN/Tile_Frames3.jpg",
+							"alt": "Sunwing campaign tile",
+							"filename": "sunwing-thumb.jpg"
+						}
+					},
+					"images": [
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/5a88ff0f-66bd-43e3-ac82-21d0fe2c3cb4/Screen+Shot+2022-08-11+at+5.07.41+PM.png",
+									"alt": "Winter Getaway headline",
+									"filename": "sunwing-1.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/92b65129-fdc6-44ac-8dba-691c8eb34da6/Screen+Shot+2022-07-29+at+11.54.04+AM.png",
+									"alt": "Winter Getaway headline",
+									"filename": "sunwing-2.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/88a40bc5-82c6-403b-b44c-d03dfe992daf/Screen+Shot+2022-08-11+at+5.09.41+PM.png",
+									"alt": "Winter Getaway headline",
+									"filename": "sunwing-3.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/25e403d8-0c21-4d2e-8c6f-30210f04f750/Screen+Shot+2022-08-11+at+5.11.08+PM.png",
+									"alt": "Winter Getaway headline",
+									"filename": "sunwing-4.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/cfeb330e-5dfa-4067-a6ff-88822ac338b5/Screen+Shot+2022-08-11+at+5.12.26+PM.png",
+									"alt": "Winter Getaway headline",
+									"filename": "sunwing-5.png"
+								}
+							}
+						}
+					],
+					"excerpt": "I always got a kick out of writing headlines for Sunwing, maybe because writing them required me to imagine myself enjoying a sunny beach vacation. My intention was to create lines that were fun, a little sassy and captured the essence of an easy vacation.",
+					"year": "2022",
+					"details": [
+						{
+							"key": "Campaign",
+							"value": "Winter Getaway"
+						},
+						{
+							"key": "Agency",
+							"value": "Conflict Advertising"
+						},
+						{
+							"key": "Client",
+							"value": "Sunwing Vacations"
+						},
+						{
+							"key": "Creative Director",
+							"value": "Niall Kelly"
+						},
+						{
+							"key": "Art Director",
+							"value": "Ella Kallonen"
+						}
+					]
+				}
+			},
+			{
+				"id": "project-writing",
+				"slug": "writing",
+				"status": "published",
+				"data": {
+					"title": "Other Writing",
+					"thumbnail": {
+						"$media": {
+							"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1660058240421-5PX6VJEXPN4O3GA81HP8/20220606cattypingonlaptop.jpeg",
+							"alt": "Cat typing on a laptop",
+							"filename": "writing-thumb.jpeg"
+						}
+					},
+					"images": [
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/792b2200-bbab-437a-a033-dc83459c537d/vice-logo-transparent.png",
+									"alt": "Vice logo",
+									"filename": "writing-1.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/f28c4247-0485-4443-aad5-bf16b75128db/download.png",
+									"alt": "CBC logo",
+									"filename": "writing-2.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/70a531fc-6109-47bd-a4d4-442a62046818/Screen+Shot+2022-08-09+at+2.49.13+PM.png",
+									"alt": "Published article",
+									"filename": "writing-3.png"
+								}
+							}
+						},
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/94675742-9d55-4ab9-8016-9bed96c2909a/new_head.png",
+									"alt": "Hazlitt header",
+									"filename": "writing-4.png"
+								}
+							}
+						}
+					],
+					"excerpt": "Ask me how I became the music editor for Vice France (when it was cool). I briefly lived the dream and wrote about fancy mattresses and spending 48hrs in cities I'd never been to. Wrote satire for the CBC — your tax dollars at work!",
+					"year": "Various",
+					"details": [
+						{
+							"key": "Publications",
+							"value": "Vice, CBC Comedy, Hazlitt"
+						}
+					]
+				}
+			},
+			{
+				"id": "project-television",
+				"slug": "television",
+				"status": "published",
+				"data": {
+					"title": "Screenwriting",
+					"thumbnail": {
+						"$media": {
+							"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/1660251643851-XH2JKQ3LOPE03SX4GB46/markus-winkler-Do7fErMeysY-unsplash.jpg",
+							"alt": "Typewriter",
+							"filename": "television-thumb.jpg"
+						}
+					},
+					"images": [
+						{
+							"image": {
+								"$media": {
+									"url": "https://images.squarespace-cdn.com/content/v1/62ce0950962b1e03ae9d54e3/96369e26-b580-4bf3-a2b1-d10953eba397/BaronVonSketchShowS3t_ProgramHeader_750x360.jpeg",
+									"alt": "The Baroness von Sketch Show",
+									"filename": "television-1.jpeg"
+								}
+							}
+						}
+					],
+					"excerpt": "Wrote two seasons of \"We Are Savvy\", a kids TV show for YouTube Red, produced by Banger Films. Story editor in season 3 of The Baroness von Sketch Show.",
+					"year": "2016–2019",
+					"details": [
+						{
+							"key": "We Are Savvy",
+							"value": "Writer — two seasons, YouTube Red, produced by Banger Films"
+						},
+						{
+							"key": "The Baroness von Sketch Show",
+							"value": "Story editor — season 3, CBC"
+						}
+					]
+				}
+			}
+		],
+		"pages": [
+			{
+				"id": "page-sample",
+				"slug": "sample-page",
+				"status": "draft",
+				"data": {
+					"title": "Sample Page",
+					"excerpt": "A draft page showing the pages collection and template switcher.",
+					"template": "default",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "This is a CMS page"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Pages created in the admin render at /<slug>. Pick a template in the sidebar: \"default\" is this narrow editorial column, \"wide\" spans the full content width."
+								}
+							]
+						}
+					]
+				}
+			}
+		]
+	}
+}

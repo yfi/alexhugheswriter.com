@@ -1,0 +1,116 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../layouts/Base.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+
+// Prerendered on the static track; on-demand (live) on the preview Worker.
+export const prerender = false;
+
+const { entries: projects, cacheHint } = await getEmDashCollection("projects", {
+	orderBy: { published_at: "asc" },
+	limit: 50,
+});
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+---
+
+<Base>
+	<section class="hero">
+		<h1 class="hero-title">
+			Hi, I’m<br />
+			<span class="hero-name">Alex Hughes.</span>
+		</h1>
+		<div class="hero-bio">
+			<p>I’m a Toronto based writer.</p>
+			<p>I work in advertising, television and print.</p>
+			<p>I have a ridiculous memory for pop culture and ephemera.</p>
+			<p>Currently reading:</p>
+			<p class="hero-reading">Creation Lake by Rachel Kushner</p>
+		</div>
+	</section>
+
+	{
+		projects.length > 0 && (
+			<section class="projects">
+				<div class="projects-grid">
+					{projects.map((project) => (
+						<ProjectCard
+							title={project.data.title ?? "Untitled"}
+							thumbnail={project.data.thumbnail}
+							href={`/projects/${project.id}`}
+						/>
+					))}
+				</div>
+			</section>
+		)
+	}
+</Base>
+
+<style>
+	.hero {
+		display: grid;
+		grid-template-columns: 1.2fr 1fr;
+		gap: var(--spacing-2xl);
+		padding: clamp(2rem, 6vw, 5rem) var(--spacing-xl) clamp(4rem, 10vw, 8rem);
+		max-width: var(--wide-width, 1400px);
+		margin: 0 auto;
+	}
+
+	.hero-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+		line-height: var(--leading-tight);
+		padding-left: clamp(0rem, 4vw, 3.5rem);
+	}
+
+	.hero-name {
+		color: var(--color-brand);
+	}
+
+	.hero-bio {
+		font-family: var(--font-heading);
+		font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+		text-transform: uppercase;
+		letter-spacing: 0.01em;
+		display: flex;
+		flex-direction: column;
+		gap: 1.2em;
+		line-height: 1.25;
+	}
+
+	.hero-reading {
+		color: var(--color-brand);
+	}
+
+	.projects {
+		padding: 0 var(--spacing-lg);
+		max-width: 1500px;
+		margin: 0 auto;
+	}
+
+	.projects-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 40px 11px;
+	}
+
+	@media (max-width: 900px) {
+		.hero {
+			grid-template-columns: 1fr;
+		}
+
+		.hero-title {
+			padding-left: 0;
+		}
+
+		.projects-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 560px) {
+		.projects-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

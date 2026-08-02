@@ -1,0 +1,239 @@
+---
+import { getEmDashEntry, getEmDashCollection, decodeSlug } from "emdash";
+import { Image } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+
+// Static track (Cloudflare Pages): prerender one page per published project.
+// Server track (preview Worker): stays on-demand so edits appear live.
+export const prerender = false;
+
+export async function getStaticPaths() {
+	const { entries } = await getEmDashCollection("projects", {
+		status: "published",
+		limit: 200,
+	});
+	return entries.map((entry) => ({ params: { slug: entry.id } }));
+}
+
+const slug = decodeSlug(Astro.params.slug);
+
+if (!slug) {
+	return Astro.redirect("/404");
+}
+
+const { entry: project, cacheHint } = await getEmDashEntry("projects", slug);
+
+if (!project) {
+	return Astro.redirect("/404");
+}
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+// Next-project navigation, in homepage (seed) order.
+const { entries: allProjects } = await getEmDashCollection("projects", {
+	orderBy: { published_at: "asc" },
+	limit: 50,
+});
+const currentIndex = allProjects.findIndex((p) => p.id === project.id);
+const nextProject =
+	allProjects.length > 1
+		? allProjects[(currentIndex + 1) % allProjects.length]
+		: null;
+
+// Repeater of image sub-fields: [{ image: <media value> }]
+const images = ((project.data.images ?? []) as Array<{ image?: unknown }>)
+	.map((row) => row.image)
+	.filter(Boolean);
+const details = (project.data.details ?? []) as Array<{
+	key: string;
+	value: string;
+}>;
+
+function getImageSrc(img: unknown): string | undefined {
+	if (!img || typeof img !== "object") return undefined;
+	const image = img as Record<string, unknown>;
+	return typeof image.src === "string" ? image.src : undefined;
+}
+---
+
+<Base
+	title={project.data.title}
+	description={project.data.excerpt}
+	image={getImageSrc(project.data.thumbnail)}
+	type="article"
+>
+	<article class="project">
+		<header class="project-header">
+			<div class="project-heading">
+				{
+					project.data.year && (
+						<p class="project-year" {...project.edit.year}>
+							{project.data.year}
+						</p>
+					)
+				}
+				<h1 class="project-title" {...project.edit.title}>
+					{project.data.title}
+				</h1>
+			</div>
+			<div class="project-info">
+				{
+					project.data.excerpt && (
+						<p class="project-excerpt" {...project.edit.excerpt}>
+							{project.data.excerpt}
+						</p>
+					)
+				}
+				{
+					details.length > 0 && (
+						<dl class="project-details" {...project.edit.details}>
+							{details.map((d) => (
+								<div class="detail-row">
+									<dt>{d.key}</dt>
+									<dd>{d.value}</dd>
+								</div>
+							))}
+						</dl>
+					)
+				}
+			</div>
+		</header>
+
+		{
+			images.length > 0 && (
+				<div class="project-images" {...project.edit.images}>
+					{images.map((img) => (
+						<Image image={img} />
+					))}
+				</div>
+			)
+		}
+
+		{
+			images.length === 0 && project.data.thumbnail && (
+				<div class="project-images" {...project.edit.thumbnail}>
+					<Image image={project.data.thumbnail} />
+				</div>
+			)
+		}
+	</article>
+
+	{
+		nextProject && (
+			<nav class="next-project">
+				<a href={`/projects/${nextProject.id}`}>
+					<span class="next-label">Next</span>
+					<span class="next-title">{nextProject.data.title}</span>
+				</a>
+			</nav>
+		)
+	}
+</Base>
+
+<style>
+	.project {
+		max-width: 1500px;
+		margin: 0 auto;
+		padding: clamp(1rem, 4vw, 3rem) var(--spacing-xl) 0;
+	}
+
+	.project-header {
+		display: grid;
+		grid-template-columns: 1.2fr 1fr;
+		gap: var(--spacing-2xl);
+		margin-bottom: clamp(2rem, 6vw, 4rem);
+	}
+
+	.project-year {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.project-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2.4rem, 6vw, 4.5rem);
+		line-height: var(--leading-tight);
+	}
+
+	.project-excerpt {
+		font-size: var(--font-size-base);
+		line-height: var(--leading-relaxed);
+		margin-bottom: var(--spacing-xl);
+	}
+
+	.detail-row {
+		display: flex;
+		gap: 0.5em;
+		margin-bottom: var(--spacing-sm);
+		font-size: var(--font-size-sm);
+		break-inside: avoid-column;
+	}
+
+	.detail-row dt {
+		font-family: var(--font-heading);
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		color: var(--color-brand);
+		white-space: nowrap;
+	}
+
+	.detail-row dt::after {
+		content: ":";
+	}
+
+	.project-images {
+		display: flex;
+		flex-direction: column;
+		gap: 11px;
+	}
+
+	.project-images img {
+		width: 100%;
+		height: auto;
+	}
+
+	.next-project {
+		max-width: 1500px;
+		margin: clamp(3rem, 8vw, 6rem) auto 0;
+		padding: 0 var(--spacing-xl);
+	}
+
+	.next-project a {
+		display: flex;
+		align-items: baseline;
+		gap: var(--spacing-md);
+		text-decoration: none;
+		justify-content: flex-end;
+	}
+
+	.next-label {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		text-transform: uppercase;
+	}
+
+	.next-title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.4rem, 3vw, 2.2rem);
+		text-transform: uppercase;
+	}
+
+	.next-project a:hover .next-title {
+		color: var(--color-brand);
+	}
+
+	@media (max-width: 900px) {
+		.project-header {
+			grid-template-columns: 1fr;
+			gap: var(--spacing-lg);
+		}
+	}
+
+	@media (min-width: 901px) {
+		.project-details {
+			column-count: 2;
+			column-gap: var(--spacing-2xl);
+		}
+	}
+</style>
