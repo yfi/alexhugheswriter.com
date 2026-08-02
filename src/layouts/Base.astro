@@ -1,8 +1,7 @@
 ---
-import { getMenu, getSiteSettings } from "emdash";
-import { EmDashHead } from "emdash/ui";
-import { createPublicPageContext } from "emdash/page";
+import { getEntry } from "astro:content";
 import { Font } from "astro:assets";
+import SeoHead from "../components/SeoHead.astro";
 import "../styles/tokens.css";
 import "../styles/theme.css";
 
@@ -14,26 +13,16 @@ interface Props {
 }
 
 const { title, description, image, type = "website" } = Astro.props;
-const settings = await getSiteSettings();
-const siteTitle = settings?.title || "Alex Hughes";
+const settingsEntry = await getEntry("settings", "site");
+const siteTitle = settingsEntry?.data.title || "Alex Hughes";
 const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
-const siteDescription = settings?.tagline || "Toronto based writer";
+const siteDescription = description || settingsEntry?.data.tagline || "Toronto based writer";
 
-const menu = await getMenu("primary");
+const menu = [
+	{ label: "Home", url: "/" },
+	{ label: "About", url: "/about" },
+];
 const currentPath = Astro.url.pathname;
-
-const pageCtx = createPublicPageContext({
-	Astro,
-	kind: "custom",
-	pageType: type,
-	title: fullTitle,
-	pageTitle: title ?? siteTitle,
-	description: description || siteDescription,
-	canonical: Astro.url.href,
-	image,
-	seo: { ogImage: image },
-	siteName: siteTitle,
-});
 ---
 
 <!doctype html>
@@ -42,7 +31,14 @@ const pageCtx = createPublicPageContext({
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{fullTitle}</title>
-		<EmDashHead page={pageCtx} />
+		<SeoHead
+			title={fullTitle}
+			description={siteDescription}
+			canonical={Astro.url.href}
+			siteName={siteTitle}
+			image={image}
+			type={type}
+		/>
 		<Font cssVariable="--font-heading" preload />
 		<link
 			rel="alternate"
@@ -57,12 +53,8 @@ const pageCtx = createPublicPageContext({
 				<a href="/" class="site-title">{siteTitle}</a>
 				<div class="nav-links">
 					{
-						menu?.items.map((item) => (
-							<a
-								href={item.url}
-								target={item.target}
-								class:list={{ active: currentPath === item.url }}
-							>
+						menu.map((item) => (
+							<a href={item.url} class:list={{ active: currentPath === item.url }}>
 								{item.label}
 							</a>
 						))

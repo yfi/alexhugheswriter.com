@@ -1,38 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "alexhugheswriter",
-  "main": "./src/worker.ts",
   "compatibility_date": "2026-02-24",
-  "compatibility_flags": ["nodejs_compat"],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "alexhugheswriter-db",
-      "database_id": "a7304708-5376-46a5-9e37-3a525aaafb6c",
-      // Local dev + static build read (and WRITE) the real production D1.
-      "remote": true,
-    },
-  ],
-  "r2_buckets": [
-    {
-      "binding": "MEDIA",
-      "bucket_name": "alexhugheswriter-media",
-      "remote": true,
-    },
-  ],
-  // Astro's image service on Workers (resizes thumbnails at the edge)
-  "images": {
-    "binding": "IMAGES",
-  },
-  // Worker Loader for plugin sandboxing. Requires a paid Workers plan
-  // (Dynamic Workers). Uncomment to enable CMS plugins.
-  // "worker_loaders": [
-  // 	{
-  // 		"binding": "LOADER",
-  // 	},
-  // ],
-  // Drives scheduled publishing, plugin cron, and maintenance (see src/worker.ts)
-  "triggers": {
-    "crons": ["* * * * *"],
-  },
+  "pages_build_output_dir": "dist",
 }

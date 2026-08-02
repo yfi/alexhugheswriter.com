@@ -1,62 +1,41 @@
-# EmDash Portfolio Template
+# Alex Hughes — Portfolio
 
-A visual portfolio for showcasing creative work, built with [EmDash](https://github.com/emdash-cms/emdash). Runs on any Node.js server with SQLite and local file storage. Project pages with tag filtering, case study layouts, and an RSS feed for new work.
-
-![Portfolio template work page](https://raw.githubusercontent.com/emdash-cms/emdash/main/assets/templates/portfolio/latest/work-light-desktop.jpg)
-
-## What's Included
-
-- Project grid with hover effects
-- Tag-based filtering on the work page
-- Individual project pages with galleries
-- About and contact pages
-- RSS feed for new projects
-- SEO metadata and JSON-LD
-- Dark/light mode
+A static portfolio site built with [Astro](https://astro.build), with content managed by [Pages CMS](https://pagescms.org) — a git-based CMS that edits files directly in this repo.
 
 ## Pages
 
-| Page | Route |
-|---|---|
-| Homepage | `/` |
-| Work listing | `/work` |
-| Single project | `/work/:slug` |
-| About | `/about` |
-| Contact | `/contact` |
-| RSS | `/rss.xml` |
-| 404 | fallback |
-
-## Screenshots
-
-| | Desktop | Mobile |
-|---|---|---|
-| Light | ![work light desktop](https://raw.githubusercontent.com/emdash-cms/emdash/main/assets/templates/portfolio/latest/work-light-desktop.jpg) | ![work light mobile](https://raw.githubusercontent.com/emdash-cms/emdash/main/assets/templates/portfolio/latest/work-light-mobile.jpg) |
-| Dark | ![work dark desktop](https://raw.githubusercontent.com/emdash-cms/emdash/main/assets/templates/portfolio/latest/work-dark-desktop.jpg) | ![work dark mobile](https://raw.githubusercontent.com/emdash-cms/emdash/main/assets/templates/portfolio/latest/work-dark-mobile.jpg) |
+| Page            | Route               |
+| --------------- | -------------------- |
+| Homepage feed   | `/`                   |
+| Project detail  | `/projects/:slug`     |
+| About           | `/about`               |
+| RSS             | `/rss.xml`             |
+| 404             | fallback                |
 
 ## Infrastructure
 
-- **Runtime:** Node.js
-- **Database:** SQLite (local file)
-- **Storage:** Local filesystem
-- **Framework:** Astro with `@astrojs/node`
+- **Framework:** Astro (`output: "static"`)
+- **Content:** Astro Content Collections reading YAML/Markdown files in `src/content/`
+- **CMS:** Pages CMS (`.pages.yml`), edits committed via a GitHub App
+- **Media:** committed image files under `public/media/`
 
 ## Getting Started
 
 ```bash
-pnpm install
-pnpm bootstrap
-pnpm dev
+npm install
+npm run dev
 ```
 
-Open http://localhost:4321 for the site and http://localhost:4321/_emdash/admin for the CMS.
+Open http://localhost:4321 for the site. There is no local admin UI — content is edited directly in `src/content/` or through the hosted Pages CMS app once the GitHub App is installed on this repo (see `app.pagescms.org`).
 
-## Want Cloudflare Instead?
+## Deploying
 
-See the [Cloudflare variant](../portfolio-cloudflare) for a version that deploys to Cloudflare Workers with D1 and R2.
-
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/emdash-cms/templates/tree/main/portfolio-cloudflare)
+```bash
+npm run build
+npm run deploy   # wrangler pages deploy dist
+```
 
 ## See Also
 
-- [All templates](../)
-- [EmDash documentation](https://github.com/emdash-cms/emdash/tree/main/docs)
+- [AGENTS.md](./AGENTS.md) — architecture notes for coding agents (schema, key files, conventions)
+- [Pages CMS documentation](https://pagescms.org/docs)

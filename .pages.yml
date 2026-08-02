@@ -1,0 +1,82 @@
+media:
+  input: public/media
+  output: /media
+
+content:
+  - name: projects
+    label: Projects
+    type: collection
+    path: src/content/projects
+    format: yaml
+    view:
+      fields: [title, year]
+      primary: title
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: thumbnail
+        type: image
+        required: true
+      - name: thumbnail_alt
+        label: Thumbnail alt text
+        type: string
+      - name: images
+        label: Gallery
+        type: block
+        list: true
+        fields:
+          - name: image
+            type: image
+            required: true
+          - name: alt
+            type: string
+      - name: excerpt
+        type: text
+      - name: year
+        type: string
+      - name: date
+        type: date
+      - name: details
+        label: Details
+        type: block
+        list: true
+        fields:
+          - name: key
+            type: string
+            required: true
+          - name: value
+            type: string
+            required: true
+
+  - name: settings
+    label: Site Settings
+    type: file
+    path: src/content/settings/site.yaml
+    fields:
+      - name: site
+        type: object
+        fields:
+          - name: title
+            type: string
+            required: true
+          - name: tagline
+            type: string
+
+  - name: intro
+    label: Intro (homepage bio)
+    type: file
+    path: src/content/sections/intro.md
+    format: raw
+    fields:
+      - name: body
+        type: rich-text
+
+  - name: footer
+    label: Footer
+    type: file
+    path: src/content/sections/footer.md
+    format: raw
+    fields:
+      - name: body
+        type: rich-text

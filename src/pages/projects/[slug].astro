@@ -1,92 +1,47 @@
 ---
-import { getEmDashEntry, getEmDashCollection, decodeSlug } from "emdash";
-import { Image } from "emdash/ui";
+import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 
-// Static track (Cloudflare Pages): prerender one page per published project.
-// Server track (preview Worker): stays on-demand so edits appear live.
-export const prerender = false;
-
 export async function getStaticPaths() {
-	const { entries } = await getEmDashCollection("projects", {
-		status: "published",
-		limit: 200,
-	});
-	return entries.map((entry) => ({ params: { slug: entry.id } }));
+	const entries = await getCollection("projects");
+	return entries.map((entry) => ({ params: { slug: entry.id }, props: { entries } }));
 }
 
-const slug = decodeSlug(Astro.params.slug);
-
-if (!slug) {
-	return Astro.redirect("/404");
-}
-
-const { entry: project, cacheHint } = await getEmDashEntry("projects", slug);
+const { entries: allProjects } = Astro.props as { entries: Awaited<ReturnType<typeof getCollection<"projects">>> };
+const project = allProjects.find((p) => p.id === Astro.params.slug);
 
 if (!project) {
 	return Astro.redirect("/404");
 }
 
-if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
-
-// Next-project navigation, in homepage (seed) order.
-const { entries: allProjects } = await getEmDashCollection("projects", {
-	orderBy: { published_at: "asc" },
-	limit: 50,
-});
+// Next-project navigation, in content order.
 const currentIndex = allProjects.findIndex((p) => p.id === project.id);
 const nextProject =
 	allProjects.length > 1
 		? allProjects[(currentIndex + 1) % allProjects.length]
 		: null;
 
-// Repeater of image sub-fields: [{ image: <media value> }]
-const images = ((project.data.images ?? []) as Array<{ image?: unknown }>)
-	.map((row) => row.image)
-	.filter(Boolean);
-const details = (project.data.details ?? []) as Array<{
-	key: string;
-	value: string;
-}>;
-
-function getImageSrc(img: unknown): string | undefined {
-	if (!img || typeof img !== "object") return undefined;
-	const image = img as Record<string, unknown>;
-	return typeof image.src === "string" ? image.src : undefined;
-}
+const images = project.data.images;
+const details = project.data.details;
 ---
 
 <Base
 	title={project.data.title}
 	description={project.data.excerpt}
-	image={getImageSrc(project.data.thumbnail)}
+	image={project.data.thumbnail}
 	type="article"
 >
 	<article class="project">
 		<header class="project-header">
 			<div class="project-heading">
-				{
-					project.data.year && (
-						<p class="project-year" {...project.edit.year}>
-							{project.data.year}
-						</p>
-					)
-				}
-				<h1 class="project-title" {...project.edit.title}>
-					{project.data.title}
-				</h1>
+				{project.data.year && <p class="project-year">{project.data.year}</p>}
+				<h1 class="project-title">{project.data.title}</h1>
 			</div>
 			<div class="project-info">
-				{
-					project.data.excerpt && (
-						<p class="project-excerpt" {...project.edit.excerpt}>
-							{project.data.excerpt}
-						</p>
-					)
-				}
+				{project.data.excerpt && <p class="project-excerpt">{project.data.excerpt}</p>}
 				{
 					details.length > 0 && (
-						<dl class="project-details" {...project.edit.details}>
+						<dl class="project-details">
 							{details.map((d) => (
 								<div class="detail-row">
 									<dt>{d.key}</dt>
@@ -101,9 +56,9 @@ function getImageSrc(img: unknown): string | undefined {
 
 		{
 			images.length > 0 && (
-				<div class="project-images" {...project.edit.images}>
-					{images.map((img) => (
-						<Image image={img} />
+				<div class="project-images">
+					{images.map((slide) => (
+						<img src={slide.image} alt={slide.alt} />
 					))}
 				</div>
 			)
@@ -111,8 +66,8 @@ function getImageSrc(img: unknown): string | undefined {
 
 		{
 			images.length === 0 && project.data.thumbnail && (
-				<div class="project-images" {...project.edit.thumbnail}>
-					<Image image={project.data.thumbnail} />
+				<div class="project-images">
+					<img src={project.data.thumbnail} alt={project.data.thumbnail_alt} />
 				</div>
 			)
 		}

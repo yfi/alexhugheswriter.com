@@ -1,41 +1,22 @@
 ---
 import AppLayout from "../layouts/AppLayout.astro";
-import { Image, PortableText } from "emdash/ui";
-import { getEmDashCollection, getSection, getSiteSettings } from "emdash";
+import { getCollection, getEntry, render } from "astro:content";
 
-// Live/on-demand on the preview Worker; flipped to true by the static build.
-export const prerender = false;
+const settingsEntry = await getEntry("settings", "site");
+const introEntry = await getEntry("sections", "intro");
+const footerEntry = await getEntry("sections", "footer");
+const { Content: IntroContent } = introEntry ? await render(introEntry) : { Content: null };
+const { Content: FooterContent } = footerEntry ? await render(footerEntry) : { Content: null };
 
-const settings = await getSiteSettings();
-const [intro, footer] = await Promise.all([
-	getSection("intro"),
-	getSection("footer"),
-]);
+const projects = (await getCollection("projects")).sort(
+	(a, b) => (a.data.date?.getTime() ?? 0) - (b.data.date?.getTime() ?? 0),
+);
 
-const { entries: projects, cacheHint } = await getEmDashCollection("projects", {
-	orderBy: { published_at: "asc" },
-	limit: 50,
-});
-if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const headshot = "/media/headshot.jpg";
 
-// Headshot from the EmDash media library (served by the preview Worker).
-const headshot =
-	"https://alexhugheswriter.yfikv.workers.dev/_emdash/api/media/file/01KY2S9W5MRYTWS2BPTRDHTTC3.jpg";
-
-const name = settings?.title ?? "Alex Hughes";
+const name = settingsEntry?.data.title ?? "Alex Hughes";
 
 type DetailRow = { key: string; value: string };
-
-// Repeater of image sub-fields: [{ image: <media value> }]
-function imagesOf(project: (typeof projects)[number]): unknown[] {
-	return ((project.data.images ?? []) as Array<{ image?: unknown }>)
-		.map((row) => row.image)
-		.filter(Boolean);
-}
-
-function detailsOf(project: (typeof projects)[number]): DetailRow[] {
-	return (project.data.details ?? []) as DetailRow[];
-}
 
 // Pulls "Client" out of the flexible details list so it can sit in the
 // year/title/client meta row; everything else renders as the details list.
@@ -58,16 +39,18 @@ function splitDetails(details: DetailRow[]): { client: string | null; rest: Deta
 			<img class="island-avatar" src={headshot} alt="" />
 			<span class="island-id">
 				<span class="island-name">{name}</span>
-				{settings?.tagline && <span class="island-tagline">{settings.tagline}</span>}
+				{settingsEntry?.data.tagline && (
+					<span class="island-tagline">{settingsEntry.data.tagline}</span>
+				)}
 			</span>
 			<span class="island-caret" aria-hidden="true"></span>
 		</button>
 		{
-			intro?.content && (
+			IntroContent && (
 				<div class="island-panel" id="island-panel">
 					<div class="island-bio">
 						<div class="island-bio-text">
-							<PortableText value={intro.content} />
+							<IntroContent />
 						</div>
 					</div>
 				</div>
@@ -77,16 +60,18 @@ function splitDetails(details: DetailRow[]): { client: string | null; rest: Deta
 
 	{
 		projects.map((project) => {
-			const images = imagesOf(project);
-			const { client, rest } = splitDetails(detailsOf(project));
-			const slides = images.length > 0 ? images : [project.data.thumbnail].filter(Boolean);
+			const { client, rest } = splitDetails(project.data.details);
+			const slides =
+				project.data.images.length > 0
+					? project.data.images
+					: [{ image: project.data.thumbnail, alt: project.data.thumbnail_alt }];
 			return (
 				<article class="work">
 					<div class="slideshow">
 						<div class="carousel" tabindex="0" aria-label={`${project.data.title} images`}>
-							{slides.map((img) => (
+							{slides.map((slide) => (
 								<div class="slide">
-									<Image image={img} fit="contain" />
+									<img src={slide.image} alt={slide.alt} />
 								</div>
 							))}
 						</div>
@@ -123,13 +108,7 @@ function splitDetails(details: DetailRow[]): { client: string | null; rest: Deta
 
 	<footer class="site-footer">
 		<div class="footer-content">
-			{
-				footer?.content ? (
-					<PortableText value={footer.content} />
-				) : (
-					<p>Let’s make cool stuff!</p>
-				)
-			}
+			{FooterContent ? <FooterContent /> : <p>Let’s make cool stuff!</p>}
 		</div>
 	</footer>
 </AppLayout>

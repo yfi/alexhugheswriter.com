@@ -1,0 +1,26 @@
+title: Moosehead
+thumbnail: /media/moosehead-thumb.webp
+thumbnail_alt: Moosehead campaign tile
+images:
+  - image: /media/moosehead-1.webp
+    alt: Hard Working Beer campaign
+  - image: /media/moosehead-2.webp
+    alt: Seltzernomics — peach mango mockup
+  - image: /media/moosehead-3.webp
+    alt: Seltzernomics — orange cherry mockup
+excerpt: 'The Hot Take: The best beer is the one you drink at the end of a hard day of work.'
+year: '2022'
+date: '2026-07-21T16:38:07.412Z'
+details:
+  - key: Campaigns
+    value: Hard Working Beer, Seltzernomics
+  - key: Description
+    value: Everyone's got rising food prices and inflation on their mind these days. So we compared outrageous fruit prices to cans of fruit flavoured hard seltzer.
+  - key: Agency
+    value: Conflict Advertising
+  - key: Client
+    value: Moosehead Breweries
+  - key: Creative Director
+    value: Niall Kelly
+  - key: Art Director
+    value: Leonardo Gonzalez, Emily Albanese

@@ -1,0 +1,18 @@
+title: Other Writing
+thumbnail: /media/writing-thumb.webp
+thumbnail_alt: Cat typing on a laptop
+images:
+  - image: /media/writing-1.webp
+    alt: Vice logo
+  - image: /media/writing-2.webp
+    alt: CBC logo
+  - image: /media/writing-3.webp
+    alt: Published article
+  - image: /media/writing-4.webp
+    alt: Hazlitt header
+excerpt: Ask me how I became the music editor for Vice France (when it was cool). I briefly lived the dream and wrote about fancy mattresses and spending 48hrs in cities I'd never been to. Wrote satire for the CBC — your tax dollars at work!
+year: Various
+date: '2026-07-21T16:39:17.276Z'
+details:
+  - key: Publications
+    value: Vice, CBC Comedy, Hazlitt

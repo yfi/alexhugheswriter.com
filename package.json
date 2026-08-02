@@ -3,33 +3,18 @@
   "version": "0.0.3",
   "private": true,
   "type": "module",
-  "emdash": {
-    "label": "Portfolio",
-    "seed": "seed/seed.json"
-  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "astro build && wrangler deploy",
-    "sync-content": "node scripts/sync-content.mjs",
-    "build:static": "node scripts/build-static.mjs",
-    "deploy-static": "node scripts/build-static.mjs && wrangler pages deploy dist/client --project-name alexhugheswriter",
+    "deploy": "astro build && wrangler pages deploy dist --project-name alexhugheswriter",
     "typecheck": "astro check"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.0.0",
-    "@astrojs/react": "^6.0.0",
-    "@emdash-cms/cloudflare": "^0.28.1",
-    "astro": "^7.0.0",
-    "emdash": "^0.28.1",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "astro": "^7.0.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.7",
-    "@astrojs/node": "^11.0.2",
-    "@cloudflare/workers-types": "^5.20260714.1",
     "wrangler": "^4.99.0"
   }
 }
