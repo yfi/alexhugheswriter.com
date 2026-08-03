@@ -41,7 +41,7 @@ content:
         label: Details
         type: block
         list: true
-        fields:
+        blocks:
           - name: key
             type: string
             required: true
