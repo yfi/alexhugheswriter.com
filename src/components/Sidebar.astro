@@ -20,38 +20,26 @@ const SHOW_CURRENTLY_READING = false;
 	</h1>
 	<div class="hero-bio">{IntroContent && <IntroContent />}</div>
 	<div class="sidebar-more">
-		<div class="sidebar-more-content" id="more-content">
-			<div class="sidebar-more-inner">
-				<p>Former television writer turned copywriter.</p>
-				<p class="sidebar-list-label">My clients include:</p>
-				<ul class="sidebar-list">
-					<li>Moosehead</li>
-					<li>SiriusXM</li>
-					<li>Purpose Investments</li>
-					<li>Metropolitan Museum of Art</li>
-				</ul>
-				<p class="sidebar-list-label">My writing has appeared in:</p>
-				<ul class="sidebar-list">
-					<li>Vice</li>
-					<li>CBC Comedy</li>
-					<li>Hazlitt</li>
-				</ul>
-				<p>Based in Toronto.</p>
-				{SHOW_CURRENTLY_READING && settingsEntry?.data.currently_reading && (
-					<p class="reading-note">
-						Currently reading: <em>{settingsEntry.data.currently_reading}</em>
-					</p>
-				)}
-			</div>
+		<div class="sidebar-more-inner">
+			<p class="sidebar-list-label">My clients include:</p>
+			<ul class="sidebar-list">
+				<li>Moosehead</li>
+				<li>SiriusXM</li>
+				<li>Purpose Investments</li>
+				<li>Metropolitan Museum of Art</li>
+			</ul>
+			<p class="sidebar-list-label">My writing has appeared in:</p>
+			<ul class="sidebar-list">
+				<li>Vice</li>
+				<li>CBC Comedy</li>
+				<li>Hazlitt</li>
+			</ul>
+			{SHOW_CURRENTLY_READING && settingsEntry?.data.currently_reading && (
+				<p class="reading-note">
+					Currently reading: <em>{settingsEntry.data.currently_reading}</em>
+				</p>
+			)}
 		</div>
-		<button
-			class="sidebar-more-toggle"
-			id="more-toggle"
-			aria-expanded="false"
-			aria-controls="more-content"
-		>
-			Clients
-		</button>
 	</div>
 	<div class="sidebar-contact-block">
 		<a class="sidebar-contact" href="mailto:alex.typical@gmail.com">Get In Touch</a>
@@ -59,15 +47,6 @@ const SHOW_CURRENTLY_READING = false;
 </aside>
 
 <script>
-	const moreToggle = document.getElementById("more-toggle");
-	const moreContent = document.getElementById("more-content");
-	moreToggle?.addEventListener("click", () => {
-		const expanded = moreToggle.getAttribute("aria-expanded") === "true";
-		moreToggle.setAttribute("aria-expanded", String(!expanded));
-		moreToggle.textContent = expanded ? "Clients" : "Less";
-		moreContent?.classList.toggle("is-open", !expanded);
-	});
-
 	const avatarToggle = document.getElementById("avatar-toggle");
 	avatarToggle?.addEventListener("click", () => {
 		avatarToggle.classList.toggle("is-zoomed");
@@ -160,36 +139,7 @@ const SHOW_CURRENTLY_READING = false;
 		margin-top: var(--spacing-lg);
 	}
 
-	.sidebar-more-toggle {
-		display: block;
-		margin-top: var(--spacing-xs);
-		font-family: var(--font-heading);
-		font-size: clamp(1rem, 1.15vw, 1.1rem);
-		text-transform: uppercase;
-		letter-spacing: 0.01em;
-		color: var(--color-brand);
-		background: none;
-		border: none;
-		padding: 0;
-		text-decoration: underline;
-		text-decoration-thickness: 2px;
-		text-underline-offset: 4px;
-		cursor: pointer;
-	}
-
-	.sidebar-more-content {
-		display: grid;
-		grid-template-rows: 0fr;
-		transition: grid-template-rows 0.3s ease;
-	}
-
-	.sidebar-more-content.is-open {
-		grid-template-rows: 1fr;
-	}
-
 	.sidebar-more-inner {
-		overflow: hidden;
-		min-height: 0;
 		font-family: var(--font-heading);
 		font-size: clamp(1rem, 1.15vw, 1.1rem);
 		text-transform: uppercase;
@@ -262,22 +212,14 @@ const SHOW_CURRENTLY_READING = false;
 			padding-bottom: 5rem;
 		}
 
-		.sidebar-more-toggle {
-			display: none;
-		}
-
-		.sidebar-more-content {
-			grid-template-rows: 1fr;
-		}
-
 		.sidebar-contact-block {
 			position: fixed;
 			bottom: 0;
 			left: 0;
 			right: 0;
+			margin-top: 0;
 			display: flex;
 			justify-content: center;
-			margin-top: 0;
 			padding: var(--spacing-md) var(--spacing-lg);
 			background: var(--color-bg);
 			border-top: 1px solid var(--color-border);
