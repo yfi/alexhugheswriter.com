@@ -7,6 +7,7 @@ const { Content: IntroContent } = introEntry ? await render(introEntry) : { Cont
 
 const name = settingsEntry?.data.title ?? "Alex Hughes";
 const headshot = "/media/headshot.jpg";
+const SHOW_CURRENTLY_READING = false;
 ---
 
 <aside class="sidebar">
@@ -36,7 +37,7 @@ const headshot = "/media/headshot.jpg";
 					<li>Hazlitt</li>
 				</ul>
 				<p>Based in Toronto.</p>
-				{settingsEntry?.data.currently_reading && (
+				{SHOW_CURRENTLY_READING && settingsEntry?.data.currently_reading && (
 					<p class="reading-note">
 						Currently reading: <em>{settingsEntry.data.currently_reading}</em>
 					</p>
