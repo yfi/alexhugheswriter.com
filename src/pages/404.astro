@@ -1,17 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
+import Sidebar from "../components/Sidebar.astro";
 ---
 
 <Base title="Page not found">
 	<div class="page">
-		<div class="not-found">
-			<h1 class="not-found-title">
-				404<br />
-				<span class="not-found-name">Not found.</span>
-			</h1>
-			<p class="not-found-copy">The page you're looking for doesn't exist or has been moved.</p>
-			<a class="not-found-contact" href="/">Go home</a>
-		</div>
+		<Sidebar />
 	</div>
 </Base>
 
@@ -20,52 +14,5 @@ import Base from "../layouts/Base.astro";
 		display: flex;
 		justify-content: flex-start;
 		padding: var(--spacing-lg);
-	}
-
-	.not-found {
-		display: flex;
-		flex-direction: column;
-		max-width: 300px;
-		padding-left: var(--spacing-sm);
-	}
-
-	.not-found-title {
-		font-family: var(--font-heading);
-		font-size: 3rem;
-		line-height: var(--leading-tight);
-	}
-
-	.not-found-name {
-		display: inline-block;
-		color: var(--color-brand);
-	}
-
-	.not-found-copy {
-		font-family: var(--font-heading);
-		font-size: clamp(1rem, 1.15vw, 1.1rem);
-		text-transform: uppercase;
-		letter-spacing: 0.01em;
-		line-height: 1.25;
-		margin-top: var(--spacing-lg);
-	}
-
-	.not-found-contact {
-		display: inline-block;
-		align-self: flex-start;
-		font-family: var(--font-heading);
-		font-size: var(--font-size-sm);
-		text-transform: uppercase;
-		letter-spacing: 0.02em;
-		color: var(--color-on-brand);
-		background: var(--color-brand);
-		border-radius: 999px;
-		padding: var(--spacing-sm) var(--spacing-xl);
-		margin-top: var(--spacing-lg);
-		margin-left: calc(var(--spacing-sm) * -1);
-		text-decoration: none;
-	}
-
-	.not-found-contact:hover {
-		opacity: 0.85;
 	}
 </style>
