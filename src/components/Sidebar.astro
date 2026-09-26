@@ -87,20 +87,10 @@ const SHOW_CURRENTLY_READING = false;
 
 <style>
 	.sidebar {
-		position: sticky;
-		top: var(--spacing-lg);
 		display: flex;
 		flex-direction: column;
-		max-width: 300px;
-		max-height: calc(100vh - var(--spacing-lg) * 2);
-		overflow-y: auto;
+		max-width: 360px;
 		padding-left: var(--spacing-sm);
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-	}
-
-	.sidebar::-webkit-scrollbar {
-		display: none;
 	}
 
 	.hero-avatar {
@@ -278,10 +268,7 @@ const SHOW_CURRENTLY_READING = false;
 
 	@media (max-width: 900px) {
 		.sidebar {
-			position: static;
 			max-width: none;
-			max-height: none;
-			overflow-y: visible;
 		}
 	}
 </style>
