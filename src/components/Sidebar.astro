@@ -54,7 +54,6 @@ const SHOW_CURRENTLY_READING = false;
 		</button>
 	</div>
 	<div class="sidebar-contact-block">
-		<p class="sidebar-contact-heading">Let’s make cool stuff!</p>
 		<a class="sidebar-contact" href="mailto:alex.typical@gmail.com">Get In Touch</a>
 	</div>
 </aside>
@@ -239,15 +238,6 @@ const SHOW_CURRENTLY_READING = false;
 		margin-top: var(--spacing-lg);
 	}
 
-	.sidebar-contact-heading {
-		font-family: var(--font-heading);
-		font-size: 1.1rem;
-		text-transform: uppercase;
-		letter-spacing: 0.01em;
-		color: var(--color-text);
-		margin-bottom: var(--spacing-sm);
-	}
-
 	.sidebar-contact {
 		display: inline-block;
 		font-family: var(--font-heading);
@@ -269,6 +259,33 @@ const SHOW_CURRENTLY_READING = false;
 	@media (max-width: 900px) {
 		.sidebar {
 			max-width: none;
+			padding-bottom: 5rem;
+		}
+
+		.sidebar-more-toggle {
+			display: none;
+		}
+
+		.sidebar-more-content {
+			grid-template-rows: 1fr;
+		}
+
+		.sidebar-contact-block {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			display: flex;
+			justify-content: center;
+			margin-top: 0;
+			padding: var(--spacing-md) var(--spacing-lg);
+			background: var(--color-bg);
+			border-top: 1px solid var(--color-border);
+			z-index: 50;
+		}
+
+		.sidebar-contact {
+			margin-left: 0;
 		}
 	}
 </style>
