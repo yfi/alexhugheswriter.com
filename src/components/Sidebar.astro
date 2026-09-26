@@ -50,7 +50,7 @@ const SHOW_CURRENTLY_READING = false;
 			aria-expanded="false"
 			aria-controls="more-content"
 		>
-			More
+			Clients
 		</button>
 	</div>
 	<div class="sidebar-contact-block">
@@ -65,7 +65,7 @@ const SHOW_CURRENTLY_READING = false;
 	moreToggle?.addEventListener("click", () => {
 		const expanded = moreToggle.getAttribute("aria-expanded") === "true";
 		moreToggle.setAttribute("aria-expanded", String(!expanded));
-		moreToggle.textContent = expanded ? "More" : "Less";
+		moreToggle.textContent = expanded ? "Clients" : "Less";
 		moreContent?.classList.toggle("is-open", !expanded);
 	});
 
