@@ -11,9 +11,9 @@ const SHOW_CURRENTLY_READING = false;
 ---
 
 <aside class="sidebar">
-	<button class="hero-avatar" id="avatar-toggle" aria-label="Zoom photo">
+	<div class="hero-avatar">
 		<img src={headshot} alt={name} />
-	</button>
+	</div>
 	<h1 class="hero-title">
 		Hi, I’m<br />
 		<span class="hero-name">{name}.</span>
@@ -46,23 +46,6 @@ const SHOW_CURRENTLY_READING = false;
 	</div>
 </aside>
 
-<script>
-	const avatarToggle = document.getElementById("avatar-toggle");
-	avatarToggle?.addEventListener("click", () => {
-		avatarToggle.classList.toggle("is-zoomed");
-	});
-
-	document.addEventListener("click", (e) => {
-		if (
-			avatarToggle?.classList.contains("is-zoomed") &&
-			e.target instanceof Node &&
-			!avatarToggle.contains(e.target)
-		) {
-			avatarToggle.classList.remove("is-zoomed");
-		}
-	});
-</script>
-
 <style>
 	.sidebar {
 		display: flex;
@@ -79,19 +62,6 @@ const SHOW_CURRENTLY_READING = false;
 		border-radius: 50%;
 		overflow: hidden;
 		margin-bottom: var(--spacing-lg);
-		border: none;
-		background: none;
-		padding: 0;
-		cursor: pointer;
-		transition:
-			width 0.3s ease,
-			height 0.3s ease;
-	}
-
-	.hero-avatar.is-zoomed {
-		width: 100%;
-		height: auto;
-		aspect-ratio: 1 / 1;
 	}
 
 	.hero-avatar img {
