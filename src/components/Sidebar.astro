@@ -22,11 +22,19 @@ const headshot = "/media/headshot.jpg";
 		<div class="sidebar-more-content" id="more-content">
 			<div class="sidebar-more-inner">
 				<p>Former television writer turned copywriter.</p>
-				<p>
-					My clients include: Moosehead, SiriusXM, Purpose Investments, and the Metropolitan
-					Museum of Art.
-				</p>
-				<p>My writing has appeared in Vice, CBC Comedy, and Hazlitt.</p>
+				<p class="sidebar-list-label">My clients include:</p>
+				<ul class="sidebar-list">
+					<li>Moosehead</li>
+					<li>SiriusXM</li>
+					<li>Purpose Investments</li>
+					<li>Metropolitan Museum of Art</li>
+				</ul>
+				<p class="sidebar-list-label">My writing has appeared in:</p>
+				<ul class="sidebar-list">
+					<li>Vice</li>
+					<li>CBC Comedy</li>
+					<li>Hazlitt</li>
+				</ul>
 				<p>Based in Toronto.</p>
 				{settingsEntry?.data.currently_reading && (
 					<p class="reading-note">
@@ -205,6 +213,20 @@ const headshot = "/media/headshot.jpg";
 
 	.sidebar-more-inner p:last-child {
 		margin-bottom: 0;
+	}
+
+	.sidebar-list-label {
+		margin-bottom: 0.4em;
+	}
+
+	.sidebar-list {
+		list-style: none;
+		padding-left: 0;
+		margin-bottom: 1.2em;
+	}
+
+	.sidebar-list li {
+		color: var(--color-brand);
 	}
 
 	.sidebar-more-inner em {
