@@ -30,6 +30,7 @@ const settings = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		tagline: z.string(),
+		currently_reading: z.string().optional(),
 	}),
 });
 

@@ -62,6 +62,9 @@ content:
             required: true
           - name: tagline
             type: string
+          - name: currently_reading
+            label: Currently reading
+            type: string
 
   - name: intro
     label: Intro (homepage bio)

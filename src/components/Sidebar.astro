@@ -1,0 +1,260 @@
+---
+import { getEntry, render } from "astro:content";
+
+const settingsEntry = await getEntry("settings", "site");
+const introEntry = await getEntry("sections", "intro");
+const { Content: IntroContent } = introEntry ? await render(introEntry) : { Content: null };
+
+const name = settingsEntry?.data.title ?? "Alex Hughes";
+const headshot = "/media/headshot.jpg";
+---
+
+<aside class="sidebar">
+	<button class="hero-avatar" id="avatar-toggle" aria-label="Zoom photo">
+		<img src={headshot} alt={name} />
+	</button>
+	<h1 class="hero-title">
+		Hi, I’m<br />
+		<span class="hero-name">{name}.</span>
+	</h1>
+	<div class="hero-bio">{IntroContent && <IntroContent />}</div>
+	<div class="sidebar-more">
+		<div class="sidebar-more-content" id="more-content">
+			<div class="sidebar-more-inner">
+				<p>Former television writer turned copywriter.</p>
+				<p>
+					My clients include: Moosehead, SiriusXM, Purpose Investments, and the Metropolitan
+					Museum of Art.
+				</p>
+				<p>My writing has appeared in Vice, CBC Comedy, and Hazlitt.</p>
+				<p>Based in Toronto.</p>
+				{settingsEntry?.data.currently_reading && (
+					<p class="reading-note">
+						Currently reading: <em>{settingsEntry.data.currently_reading}</em>
+					</p>
+				)}
+			</div>
+		</div>
+		<button
+			class="sidebar-more-toggle"
+			id="more-toggle"
+			aria-expanded="false"
+			aria-controls="more-content"
+		>
+			More
+		</button>
+	</div>
+	<div class="sidebar-contact-block">
+		<p class="sidebar-contact-heading">Let’s make cool stuff!</p>
+		<a class="sidebar-contact" href="mailto:alex.typical@gmail.com">Get In Touch</a>
+	</div>
+</aside>
+
+<script>
+	const moreToggle = document.getElementById("more-toggle");
+	const moreContent = document.getElementById("more-content");
+	moreToggle?.addEventListener("click", () => {
+		const expanded = moreToggle.getAttribute("aria-expanded") === "true";
+		moreToggle.setAttribute("aria-expanded", String(!expanded));
+		moreToggle.textContent = expanded ? "More" : "Less";
+		moreContent?.classList.toggle("is-open", !expanded);
+	});
+
+	const avatarToggle = document.getElementById("avatar-toggle");
+	avatarToggle?.addEventListener("click", () => {
+		avatarToggle.classList.toggle("is-zoomed");
+	});
+
+	document.addEventListener("click", (e) => {
+		if (
+			avatarToggle?.classList.contains("is-zoomed") &&
+			e.target instanceof Node &&
+			!avatarToggle.contains(e.target)
+		) {
+			avatarToggle.classList.remove("is-zoomed");
+		}
+	});
+</script>
+
+<style>
+	.sidebar {
+		position: sticky;
+		top: var(--spacing-lg);
+		display: flex;
+		flex-direction: column;
+		max-width: 300px;
+		max-height: calc(100vh - var(--spacing-lg) * 2);
+		overflow-y: auto;
+		padding-left: var(--spacing-sm);
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+
+	.sidebar::-webkit-scrollbar {
+		display: none;
+	}
+
+	.hero-avatar {
+		flex-shrink: 0;
+		display: block;
+		width: 140px;
+		height: 140px;
+		border-radius: 50%;
+		overflow: hidden;
+		margin-bottom: var(--spacing-lg);
+		border: none;
+		background: none;
+		padding: 0;
+		cursor: pointer;
+		transition:
+			width 0.3s ease,
+			height 0.3s ease;
+	}
+
+	.hero-avatar.is-zoomed {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 1 / 1;
+	}
+
+	.hero-avatar img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 35%;
+	}
+
+	.hero-title {
+		font-family: var(--font-heading);
+		font-size: 3rem;
+		line-height: var(--leading-tight);
+	}
+
+	.hero-name {
+		display: inline-block;
+		max-width: 6ch;
+		color: var(--color-brand);
+	}
+
+	.hero-bio {
+		font-family: var(--font-heading);
+		font-size: clamp(1rem, 1.15vw, 1.1rem);
+		text-transform: uppercase;
+		letter-spacing: 0.01em;
+		line-height: 1.25;
+		margin-top: var(--spacing-lg);
+	}
+
+	.hero-bio :global(p) {
+		margin-bottom: 1.2em;
+	}
+
+	.hero-bio :global(p:last-child) {
+		margin-bottom: 0;
+	}
+
+	.hero-bio :global(em) {
+		color: var(--color-brand);
+		font-style: normal;
+	}
+
+	.sidebar-more {
+		margin-top: var(--spacing-xs);
+	}
+
+	.sidebar-more-toggle {
+		display: block;
+		margin-top: var(--spacing-xs);
+		font-family: var(--font-heading);
+		font-size: clamp(1rem, 1.15vw, 1.1rem);
+		text-transform: uppercase;
+		letter-spacing: 0.01em;
+		color: var(--color-brand);
+		background: none;
+		border: none;
+		padding: 0;
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
+		cursor: pointer;
+	}
+
+	.sidebar-more-content {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.3s ease;
+	}
+
+	.sidebar-more-content.is-open {
+		grid-template-rows: 1fr;
+	}
+
+	.sidebar-more-inner {
+		overflow: hidden;
+		min-height: 0;
+		font-family: var(--font-heading);
+		font-size: clamp(1rem, 1.15vw, 1.1rem);
+		text-transform: uppercase;
+		letter-spacing: 0.01em;
+		line-height: 1.25;
+	}
+
+	.sidebar-more-inner p {
+		margin-bottom: 1.2em;
+	}
+
+	.sidebar-more-inner p:last-child {
+		margin-bottom: 0;
+	}
+
+	.sidebar-more-inner em {
+		color: var(--color-brand);
+		font-style: normal;
+	}
+
+	.reading-note {
+		border: 2px solid var(--color-brand);
+		border-radius: 8px;
+		padding: var(--spacing-sm) var(--spacing-md);
+	}
+
+	.sidebar-contact-block {
+		margin-top: var(--spacing-lg);
+	}
+
+	.sidebar-contact-heading {
+		font-family: var(--font-heading);
+		font-size: 1.1rem;
+		text-transform: uppercase;
+		letter-spacing: 0.01em;
+		color: var(--color-text);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.sidebar-contact {
+		display: inline-block;
+		font-family: var(--font-heading);
+		font-size: var(--font-size-sm);
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		color: var(--color-on-brand);
+		background: var(--color-brand);
+		border-radius: 999px;
+		padding: var(--spacing-sm) var(--spacing-xl);
+		margin-left: calc(var(--spacing-sm) * -1);
+		text-decoration: none;
+	}
+
+	.sidebar-contact:hover {
+		opacity: 0.85;
+	}
+
+	@media (max-width: 900px) {
+		.sidebar {
+			position: static;
+			max-width: none;
+			max-height: none;
+			overflow-y: visible;
+		}
+	}
+</style>
